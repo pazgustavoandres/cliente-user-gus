@@ -1,5 +1,6 @@
 import { useState } from "react";
 import axios from "axios";
+const apiUrl = import.meta.env.VITE_API_URL;
 
 export default function RegisterForm() {
   const [email, setEmail] = useState("");
@@ -7,7 +8,7 @@ export default function RegisterForm() {
 
   const handleRegister = async (e) => {
     e.preventDefault();
-    await axios.post("http://localhost:3000/api/register", { email, password });
+    await axios.post(`${apiUrl}/register`, { email, password });
     alert("Usuario registrado");
     setEmail("");
     setPassword("");
