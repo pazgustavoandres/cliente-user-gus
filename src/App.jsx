@@ -1,34 +1,27 @@
-import { useState } from "react";
-import RegisterForm from "./components/RegisterForm";
-import LoginForm from "./components/LoginForm";
-import UserList from "./components/UserList";
+import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
+import Navbar from './components/Navbar';
+import RegisterForm from './components/RegisterForm';
+import LoginForm from './components/LoginForm';
+import ProductDetail from './components/ProductDetail';
+import Ratings from './components/Ratings';
+import HomePage from './components/HomePage';
+import './App.css';
 
 function App() {
-  const [isLogged, setIsLogged] = useState(!!localStorage.getItem("token"));
-
   return (
-    <div>
-      <h1>App de Autenticación</h1>
-      {!isLogged && (
-        <>
-          <RegisterForm />
-          <LoginForm onLogin={() => setIsLogged(true)} />
-        </>
-      )}
-      {isLogged && (
-        <>
-          <UserList />
-          <button
-            onClick={() => {
-              localStorage.removeItem("token");
-              setIsLogged(false);
-            }}
-          >
-            Cerrar sesión
-          </button>
-        </>
-      )}
-    </div>
+    <Router>
+      <div className="min-h-screen bg-gray-50">
+        <Navbar />
+        
+        <Routes>
+          <Route path="/" element={<HomePage />} />
+          <Route path="/register" element={<RegisterForm />} />
+          <Route path="/login" element={<LoginForm />} />
+          <Route path="/producto/:id" element={<ProductDetail />} />
+          <Route path="/calificaciones" element={<Ratings />} />
+        </Routes>
+      </div>
+    </Router>
   );
 }
 
